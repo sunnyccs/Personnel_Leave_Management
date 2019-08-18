@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crazysunny.main.mapper.UserMapper">
+
+    <resultMap id="SysUserResultMap" type="User">
+        <id property="id" column="id" javaType="java.lang.Integer" jdbcType="INT"/>
+        <result property="username" column="USERNAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="password" column="PASSWORD" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="limits" column="LIMITS" javaType="java.lang.Integer" jdbcType="INT"/>
+        <result property="createTime" column="CREATETIME" javaType="java.lang.Long" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <update id="createTable">
+        CREATE TABLE user(
+            id INT NOT NULL AUTO_INCREMENT,
+            username VARCHAR(100) NOT NULL ,
+            password varchar(100) NOT NULL ,
+            limits INTEGER ,
+            createTime BIGINT,
+            PRIMARY KEY (id)
+        )ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+    </update>
+
+    <insert id="save" parameterType="User" >
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="username != null" >
+                username,
+            </if>
+            <if test="password != null" >
+                password,
+            </if>
+
+            <if test="limits != null" >
+                limits,
+            </if>
+            <if test="createTime != null" >
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="username != null" >
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="limits != null" >
+                #{limits,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectByName" resultMap="SysUserResultMap">
+        select * from user where username = #{username,jdbcType=VARCHAR}
+    </select>
+</mapper>
