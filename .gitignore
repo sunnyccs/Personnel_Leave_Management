@@ -33,3 +33,12 @@ build/
 
 
 .mvn/
+/*/.mvn
+/.idea
+/*/.idea
+/*/mvnw.cmd
+/*/HELP.cmd
+/*/*.iml
+.DS_Store
+main/.gitignore
+main/mvnw
