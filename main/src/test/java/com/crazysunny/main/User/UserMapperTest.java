@@ -22,7 +22,7 @@ public class UserMapperTest {
     {
         User user = new User();
         user.setUsername("admin");
-        user.setPassword("123456");
+        user.setPassword("def0e4568a393af9aca7bfa3d54c5147");
         user.setLimits(0);
         user.setCreateTime(DataTools.GetCurrentTimeSpan());
         Assert.assertEquals(1,userMapper.save(user));

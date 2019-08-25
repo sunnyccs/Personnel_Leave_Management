@@ -3,10 +3,10 @@
 <mapper namespace="com.crazysunny.main.mapper.UserMapper">
 
     <resultMap id="SysUserResultMap" type="User">
-        <id property="id" column="id" javaType="java.lang.Integer" jdbcType="INT"/>
+        <id property="id" column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         <result property="username" column="USERNAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result property="password" column="PASSWORD" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result property="limits" column="LIMITS" javaType="java.lang.Integer" jdbcType="INT"/>
+        <result property="limits" column="LIMITS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         <result property="createTime" column="CREATETIME" javaType="java.lang.Long" jdbcType="BIGINT"/>
     </resultMap>
 
@@ -62,6 +62,6 @@
     </insert>
 
     <select id="selectByName" resultMap="SysUserResultMap">
-        select * from user where username = #{username,jdbcType=VARCHAR}
+        select * from user where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
     </select>
 </mapper>
