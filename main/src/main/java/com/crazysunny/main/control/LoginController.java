@@ -3,20 +3,19 @@ package com.crazysunny.main.control;
 
 import com.crazysunny.main.message.BaseMessage;
 import com.crazysunny.main.message.MessageCode;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
 
-    @RequestMapping(value = "/loginPage", method = RequestMethod.GET)
+    @GetMapping(value = "/loginPage")
     @ResponseBody
     public String defaultLogin() {
         BaseMessage baseMessage = new BaseMessage();
@@ -25,16 +24,18 @@ public class LoginController {
         return baseMessage.GetMessageJson();
     }
 
-    @RequestMapping(value = "/logintest", method = RequestMethod.POST)
+
+    @PostMapping(value = "/logintest/{username}")
     @ResponseBody
-    public String LoginTest(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password)
+    public String LoginTest(@PathVariable String username, @RequestParam(value = "password") String password)
     {
         return "logintest";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ApiOperation(value = "登录")
+    @PostMapping(value = "/login/{username}/{password}")
     @ResponseBody
-    public String login(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
+    public String login(@PathVariable String username, @PathVariable String password) {
         BaseMessage baseMessage = new BaseMessage();
 
         // 从SecurityUtils里边创建一个 subject

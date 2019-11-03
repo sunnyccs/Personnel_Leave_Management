@@ -3,13 +3,17 @@ package com.crazysunny.main.message;
 import com.alibaba.fastjson.JSONObject;
 
 public class BaseMessage {
-    private int code;
+    protected int code;
 
-    private BaseMessageData data;
+    protected BaseMessageData data;
 
-    private String msg;
+    protected String msg;
 
     public BaseMessage() {
+    }
+
+    public BaseMessage(BaseMessageData data) {
+        this.data = data;
     }
 
     public BaseMessage(int code, BaseMessageData data, String msg) {

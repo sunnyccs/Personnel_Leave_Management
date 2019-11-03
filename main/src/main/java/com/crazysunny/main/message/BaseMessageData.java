@@ -4,7 +4,14 @@ import com.alibaba.fastjson.JSONObject;
 
 public class BaseMessageData {
 
-    private int messageId;
+    protected int messageId;
+
+    public JSONObject GetMessageObject()
+    {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("messageId",messageId);
+        return jsonObject;
+    }
 
     public String GetMessageJson()
     {

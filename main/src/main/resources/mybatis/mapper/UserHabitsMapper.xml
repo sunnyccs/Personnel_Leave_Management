@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crazysunny.main.mapper.UserHabitsMapper">
+
+    <resultMap id="UserHabitsEntityMap" type="UserHabitsEntity">
+        <id property="id" column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="userID" column="userID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+        <result property="firstPage" column="firstPage" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <update id="createTable">
+        create table userhabits(
+        id INT NOT NULL AUTO_INCREMENT,
+        userID INT NOT NULL,
+        firstPage VARCHAR(100),
+        PRIMARY KEY (id)
+        )ENGINE=InnoDB DEFAULT CHARSET=utf8
+    </update>
+
+    <update id="updateTable">
+        update userhabits set firstPage=#{firstPage} where userID=#{userID}
+    </update>
+
+    <insert id="insertTable" parameterType="UserHabitsEntity">
+        insert into userhabits
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="userID != null" >
+                userID,
+            </if>
+            <if test="firstPage != null" >
+                firstPage,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="userID != null" >
+                #{userID,jdbcType=BIGINT},
+            </if>
+            <if test="firstPage != null" >
+                #{firstPage,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getUserHabitsByUserID"  resultMap="UserHabitsEntityMap">
+        select * from userhabits where userID=#{userID}
+    </select>
+</mapper>

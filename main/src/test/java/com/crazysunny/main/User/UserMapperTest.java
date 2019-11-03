@@ -2,6 +2,8 @@ package com.crazysunny.main.User;
 
 import com.crazysunny.main.Tools.DataTools;
 import com.crazysunny.main.entity.User;
+import com.crazysunny.main.entity.UserHabitsEntity;
+import com.crazysunny.main.mapper.UserHabitsMapper;
 import com.crazysunny.main.mapper.UserMapper;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,6 +19,8 @@ public class UserMapperTest {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private UserHabitsMapper habitsMapper;
     @Test
     public void Save()
     {
@@ -33,5 +37,11 @@ public class UserMapperTest {
     {
 
         Assert.assertEquals(1,userMapper.createTable());
+    }
+
+    @Test
+    public void SelectUserHabitsByUserID()
+    {
+        UserHabitsEntity entity = habitsMapper.getUserHabitsByUserID(3);
     }
 }

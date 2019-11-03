@@ -11,4 +11,6 @@ public interface UserMapper {
     int createTable();
 
     User selectByName(String username,String password);
+
+    User getUserByName(String userName);
 }

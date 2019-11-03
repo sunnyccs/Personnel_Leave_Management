@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crazysunny.main.mapper.PersonHolidyMapper">
+
+    <resultMap id="PersonHolidyEntityMap" type="PersonHolidyEntity">
+        <id property="id" column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="personID" column="personID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="holidayStruct" column="holidayStruct" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="totalHoliday" column="totalHoliday" javaType="java.lang.Float" jdbcType="FLOAT"/>
+        <result property="hasRestDay" column="hasRestDay" javaType="java.lang.Float" jdbcType="FLOAT"/>
+        <result property="restRate" column="restRate" javaType="java.lang.Float" jdbcType="FLOAT"/>
+    </resultMap>
+
+    <update id="createTable">
+        CREATE TABLE personHolidy(
+            id INT NOT NULL AUTO_INCREMENT,
+            personID int NOT NULL,
+            holidayStruct VARCHAR(100),
+            totalHoliday float(5,2),
+            hasRestDay float(5,2),
+            restRate float (5,2),
+            PRIMARY KEY (id)
+        )ENGINE=InnoDB DEFAULT CHARSET=utf8
+    </update>
+
+    <insert id="insertHolidy" parameterType="PersonHolidyEntity">
+        insert into personHolidy
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+
+            <if test="personID != null" >
+                personID,
+            </if>
+            <if test="holidayStruct != null" >
+                holidayStruct,
+            </if>
+            <if test="totalHoliday != null" >
+                totalHoliday,
+            </if>
+            <if test="hasRestDay != null" >
+                hasRestDay,
+            </if>
+            <if test="restRate != null" >
+                restRate,
+            </if>
+
+        </trim>
+
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="personID != null" >
+                #{personID,jdbcType=INTEGER},
+            </if>
+            <if test="holidayStruct != null" >
+                #{holidayStruct,jdbcType=VARCHAR},
+            </if>
+            <if test="totalHoliday != null" >
+                #{totalHoliday,jdbcType=FLOAT},
+            </if>
+            <if test="hasRestDay != null" >
+                #{hasRestDay,jdbcType=FLOAT},
+            </if>
+            <if test="restRate != null" >
+                #{restRate,jdbcType=FLOAT},
+            </if>
+
+        </trim>
+
+    </insert>
+
+    <select id="getHolidybyConditions" resultMap="PersonHolidyEntityMap">
+        select * from personHolidy
+        <where>
+            <if test="id != null" >
+                id=#{id}
+            </if>
+
+            <if test="name != null" >
+                and name=#{name}
+            </if>
+            <if test="headIcon != null" >
+                and headIcon=#{headIcon}
+            </if>
+            <if test="gender != null" >
+                and gender=#{gender}
+            </if>
+            <if test="marry != null" >
+                and marry=#{marry}
+            </if>
+            <if test="startMarryData != null" >
+                and marryData&gt;= #{startMarryData}
+            </if>
+            <if test="endMarryData != null" >
+                and marryData&lt;= #{endMarryData}
+            </if>
+            <if test="startJoinData != null" >
+                and joinData&gt;= #{startJoinData}
+            </if>
+            <if test="endJoinData != null" >
+                and joinData&lt;= #{endJoinData}
+            </if>
+            <if test="partLevel != null" >
+                and partLevel=#{partLevel}
+            </if>
+            <if test="institute != null" >
+                and institute=#{institute}
+            </if>
+            <if test="personLevel != null" >
+                and personLevel=#{personLevel}
+            </if>
+            <if test="iscadre != null" >
+                and iscadre=#{iscadre}
+            </if>
+
+        </where>
+        <if test="limit != null">
+            <if test="offset != null">
+                limit ${offset}, ${limit}
+            </if>
+            <if test="offset == null">
+                limit ${limit}
+            </if>
+        </if>
+    </select>
+</mapper>
